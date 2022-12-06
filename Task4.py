@@ -10,6 +10,7 @@ class Task4:
 
 	def getAllReadTime(self):
 		timeRead = {}
+		assert isinstance(self.data,list)
 		for line in self.data:
 			tmp = json.loads(line)
 			if(tmp["event_type"] == "pagereadtime"):

@@ -18,7 +18,7 @@ class Task2:
 		assert isinstance(self.data,list)
 		for line in self.data:
 			tmp = json.loads(line)
-			if(tmp["env_type"] != "stream"):
+			if "subject_doc_id" in tmp:
 				if(tmp["subject_doc_id"] == nameDoc):
 					self.listCountries.append(tmp["visitor_country"])
 

@@ -16,6 +16,7 @@ class Task3:
 		self.browsersList = self.allBrowsers()
 
 	def allBrowsers(self):
+		assert isinstance(self.data,list)
 		listBrowser = []
 		for line in self.data:
 			data = json.loads(line)

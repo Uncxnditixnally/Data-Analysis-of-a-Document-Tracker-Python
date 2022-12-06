@@ -4,15 +4,14 @@ import os
 from Task2 import *
 from Task3 import *
 from Task4 import *
+from Task5 import *
 
 class DefaultGui(object):
 	
 	def __init__(self, master,file,**kwargs):
 		self.file = self.readJson(file)
 		self.initUI(master)
-		
 
-		
 	def initUI(self, master):
 		self.master = master
 		master.title("Industrial Pogramming")
@@ -37,18 +36,17 @@ class DefaultGui(object):
 		# Title
 		titlePage = Label(titleFrame, text="Data Analysis of Document Tracker",font=("Arial", 36), anchor=CENTER)
 		titlePage.grid(row=0, column=2)
-		docNameLabel = Label(titleFrame, text="Enter document name",font=("Arial"), anchor=CENTER)
+		docNameLabel = Label(titleFrame, text="Search Bar",font=("Arial"), anchor=CENTER)
 		docNameLabel.grid(row=1, column=1)
-		docInput=Entry(titleFrame, width=50)
-		docInput.grid(row=1, column=2)
+		input=Entry(titleFrame, width=50)
+		input.grid(row=1, column=2)
 
 		# Buttons
 		# First rows of buttons
 		t2 = Task2(self.file)
-		# t2 = Task2(self.file, "140224195414-e5a9acedd5eb6631bb6b39422fba6798")
-		task2aButton = Button(buttonsFrame, text="Histogram of countries\nof the viewers (2a)", anchor=CENTER,command=lambda:t2.task2a(root,displayFrame, docInput.get()))
+		task2aButton = Button(buttonsFrame, text="Histogram of countries\nof the viewers (2a)", anchor=CENTER,command=lambda:t2.task2a(root,displayFrame, input.get()))
 		task2aButton.grid(row=1,column=0, padx=30, pady=10)
-		task2bButton = Button(buttonsFrame, text="Histogram of the continents\nof the viewers (2b)", anchor=CENTER,command=lambda:t2.task2b(root,displayFrame, docInput.get()))
+		task2bButton = Button(buttonsFrame, text="Histogram of the continents\nof the viewers (2b)", anchor=CENTER,command=lambda:t2.task2b(root,displayFrame, input.get()))
 		task2bButton.grid(row=1, column=1, padx=30, pady=10)
 		t3 = Task3(self.file)
 		task3aButton = Button(buttonsFrame, text="Histogram of all browser identifiers\nof the viewers (3a)", anchor=CENTER, command=lambda:t3.task3a(root,displayFrame))
@@ -59,13 +57,14 @@ class DefaultGui(object):
 		task4Button = Button(buttonsFrame, text="Top 10 readers (4)", anchor=CENTER, command=lambda:t4.task4(root,displayFrame))
 		task4Button.grid(row=1, column=4, padx=30, pady=10)
 		# Second row of buttons
-		task5aButton = Button(buttonsFrame, text="List of all readers UUID (5a)", anchor=CENTER)
+		t5 = Task5(self.file)
+		task5aButton = Button(buttonsFrame, text="List of all readers UUID (5a)", anchor=CENTER,command=lambda:t5.task5a(root,displayFrame, input.get()))
 		task5aButton.grid(row=2,column=0, padx=30, pady=10)
-		task5bButton = Button(buttonsFrame, text="List of all document UUIDs that\nhave been read by this visitor (5b)", anchor=CENTER)
+		task5bButton = Button(buttonsFrame, text="List of all document UUIDs that\nhave been read by this visitor (5b)", anchor=CENTER, command=lambda:t5.task5b(root,displayFrame, input.get()))
 		task5bButton.grid(row=2, column=1, padx=30, pady=10)
-		task5cButton = Button(buttonsFrame, text="List of “liked” documents (5c)", anchor=CENTER)
+		task5cButton = Button(buttonsFrame, text="List of “liked” documents (5c)", anchor=CENTER, command=lambda:t5.task5c(root,displayFrame, input.get()))
 		task5cButton.grid(row=2,column=2, padx=30, pady=10)
-		task5dButton = Button(buttonsFrame, text="List of top 10 document UUIDs (5d)", anchor=CENTER)
+		task5dButton = Button(buttonsFrame, text="List of top 10 document UUIDs (5d)", anchor=CENTER, command=lambda:t5.task5d(root,displayFrame, input.get()))
 		task5dButton.grid(row=2, column=3, padx=30, pady=10)
 		task6Button = Button(buttonsFrame, text="“Also likes” graph (6)", anchor=CENTER)
 		task6Button.grid(row=2, column=4, padx=30, pady=10)
@@ -91,5 +90,5 @@ if __name__ == "__main__":
 	root = Tk()
 	root.state('zoomed') #fullscreen on Windows
 	#root.attributes('-zoomed', True) #fullscreen on Linux
-	app = DefaultGui(root,"sample_tiny.json")
+	app = DefaultGui(root,"sample_100k_lines.json")
 	root.mainloop()
