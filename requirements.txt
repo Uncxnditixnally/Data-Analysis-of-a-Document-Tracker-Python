@@ -1,1 +1,7 @@
-tk==8.0
+tk
+pycountry_convert
+user_agents
+pandas
+matplotlib
+prettytable
+graphviz

@@ -10,6 +10,7 @@ class Task5:
 	docReader= {}
 	allDoc = []
 	AlsoLike = []
+
 	def __init__(self, data):
 		self.data = data
 
@@ -59,6 +60,13 @@ class Task5:
 		txt = Label(displayFrame, text=t,font=("Arial"), anchor=CENTER)
 		txt.grid(row=0, column=1, sticky="news")
 
+	def getAllDocReader(self):
+		for visitor in self.readers:
+			self.getallDocuments(visitor)
+			if not set(self.documents).issubset(self.AlsoLike):
+				self.AlsoLike = self.AlsoLike + self.documents
+				self.docReader[visitor] = self.documents
+
 	def task5c(self, root, displayFrame, docName):
 		displayFrame.grid_rowconfigure(0, weight=1)
 		displayFrame.grid_columnconfigure(1, weight=1)
@@ -67,11 +75,7 @@ class Task5:
 			self.docNameToFind = docName
 		
 		self.getAllVisitors(self.docNameToFind)
-		for visitor in self.readers:
-			self.getallDocuments(visitor)
-			if not set(self.documents).issubset(self.AlsoLike):
-				self.AlsoLike = self.AlsoLike + self.documents
-				self.docReader[visitor] = self.documents
+		self.getAllDocReader()
 		
 		t = "Also liked documents \n\n"
 		for document in self.AlsoLike:
@@ -85,18 +89,24 @@ class Task5:
 			self.docNameToFind = docName
 		
 		self.getAllVisitors(self.docNameToFind)
-		for visitor in self.readers:
-			self.getallDocuments(visitor)
-			self.allDoc += self.documents
-			if not set(self.documents).issubset(self.AlsoLike):
-				self.AlsoLike = self.AlsoLike + self.documents
-				self.docReader[visitor] = self.documents
+		self.getAllDocReader()
 
 		counterDoc = {}
 		for doc in self.AlsoLike:
 			occurence = operator.countOf(self.allDoc, doc)
 			counterDoc[doc] = occurence
+
+		sortedDoc = dict(sorted(counterDoc.items(), key=operator.itemgetter(1), reverse=True))
+		tmp = list(sortedDoc.keys())
+		t = "Top 10 documents \n\n"
+		for i in range(0,len(tmp)):
+			if(i == 10):
+				break
+			t += tmp[i] + "\n"
+
+		txt = Label(displayFrame, text=t,font=("Arial"), anchor=CENTER)
+		txt.grid(row=0, column=1, sticky="news")
 		
-		# sort and print
+		
 
 
